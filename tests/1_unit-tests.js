@@ -1,158 +1,233 @@
 const chai = require('chai');
 const assert = chai.assert;
 
-const T = require('../components/translator.js');
+const Translator = require('../components/translator.js');
+const translator = new Translator()
 
 suite('Unit Tests', () => {
 
-    const translator = new T();
+  suite('American => British', () => {
 
-    suite('American to British English', () => {
-        test('Translate Mangoes are my favorite fruit. to British English', () => {
-            const input = 'Mangoes are my favorite fruit.';
-            const expected = 'Mangoes are my favourite fruit.';
-            assert.equal(translator.americanToBritish(input), expected);
-        });
-    
-        test('Translate I ate yogurt for breakfast. to British English', () => {
-            const input = 'I ate yogurt for breakfast.';
-            const expected = 'I ate yoghurt for breakfast.';
-            assert.equal(translator.americanToBritish(input), expected);
-        });
-    
-        test("Translate We had a party at my friend's condo. to British English", () => {
-            const input = "We had a party at my friend's condo.";
-            const expected = "We had a party at my friend's flat.";
-            assert.equal(translator.americanToBritish(input), expected);
-        });
-    
-        test('Translate Can you toss this in the trashcan for me? to British English', () => {
-            const input = 'Can you toss this in the trashcan for me?';
-            const expected = 'Can you toss this in the bin for me?';
-            assert.equal(translator.americanToBritish(input), expected);
-        });
-    
-        test('Translate The parking lot was full. to British English', () => {
-            const input = 'The parking lot was full.';
-            const expected = 'The car park was full.';
-            assert.equal(translator.americanToBritish(input), expected);
-        });
-    
-        test('Translate Like a high tech Rube Goldberg machine. to British English', () => {
-            const input = 'Like a high tech Rube Goldberg machine.';
-            const expected = 'Like a high tech Heath Robinson device.';
-            assert.equal(translator.americanToBritish(input), expected);
-        });
-    
-        test('Translate To play hooky means to skip class or work. to British English', () => {
-            const input = 'To play hooky means to skip class or work.';
-            const expected = 'To bunk off means to skip class or work.';
-            assert.equal(translator.americanToBritish(input), expected);
-        });
+    test("Mangoes are my favorite fruit.", (done) => {
+      let str = "Mangoes are my favorite fruit."
+      let newStr = "Mangoes are my <span class=\"highlight\">favourite</span> fruit."
+      let locale = 'american-to-british'
 
-        test('Translate No Mr. Bond, I expect you to die. to British English', () => {
-            const input = 'No Mr. Bond, I expect you to die.';
-            const expected = 'No Mr Bond, I expect you to die.';
-            assert.equal(translator.americanToBritish(input), expected);
-        });
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
 
-        test('Translate Dr. Grosh will see you now. to British English', () => {
-            const input = 'Dr. Grosh will see you now.';
-            const expected = 'Dr Grosh will see you now.';
-            assert.equal(translator.americanToBritish(input), expected);
-        });
+    test("I ate yogurt for breakfast.", (done) => {
+      let str = "I ate yogurt for breakfast."
+      let newStr = "I ate <span class=\"highlight\">yoghurt</span> for breakfast."
+      let locale = 'american-to-british'
 
-        test('Translate Lunch is at 12:15 today. to British English', () => {
-            const input = 'Lunch is at 12:15 today.';
-            const expected = 'Lunch is at 12.15 today.';
-            assert.equal(translator.americanToBritish(input), expected);
-        });
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
 
-        test('Translate We watched the footie match for a while. to American English', () => {
-            const input = 'We watched the footie match for a while.';
-            const expected = 'We watched the soccer match for a while.';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+    test("We had a party at my friend's condo.", (done) => {
+      let str = "We had a party at my friend's condo."
+      let newStr = "We had a party at my friend's <span class=\"highlight\">flat</span>."
+      let locale = 'american-to-british'
 
-        test('Translate Paracetamol takes up to an hour to work. to American English', () => {
-            const input = 'Paracetamol takes up to an hour to work.';
-            const expected = 'Tylenol takes up to an hour to work.';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
 
-        test('Translate First, caramelise the onions. to American English', () => {
-            const input = 'First, caramelise the onions.';
-            const expected = 'First, caramelize the onions.';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+    test("Can you toss this in the trashcan for me?", (done) => {
+      let str = "Can you toss this in the trashcan for me?"
+      let newStr = "Can you toss this in the <span class=\"highlight\">bin</span> for me?"
+      let locale = 'american-to-british'
 
-        test('Translate I spent the bank holiday at the funfair. to American English', () => {
-            const input = 'I spent the bank holiday at the funfair.';
-            const expected = 'I spent the public holiday at the carnival.';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
 
-        test('Translate I had a bicky then went to the chippy. to American English', () => {
-            const input = 'I had a bicky then went to the chippy.';
-            const expected = 'I had a cookie then went to the fish-and-chip shop.';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+    test("The parking lot was full.", (done) => {
+      let str = "The parking lot was full."
+      let newStr = "The <span class=\"highlight\">car park</span> was full."
+      let locale = 'american-to-british'
 
-        test('Translate I\'ve just got bits and bobs in my bum bag. to American English', () => {
-            const input = 'I\'ve just got bits and bobs in my bum bag.';
-            const expected = 'I\'ve just got odds and ends in my fanny pack.';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
 
-        test('Translate The car boot sale at Boxted Airfield was called off. to American English', () => {
-            const input = 'The car boot sale at Boxted Airfield was called off.';
-            const expected = 'The swap meet at Boxted Airfield was called off.';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+    test("Like a high tech Rube Goldberg machine.", (done) => {
+      let str = "Like a high tech Rube Goldberg machine."
+      let newStr = "Like a high tech <span class=\"highlight\">Heath Robinson device</span>."
+      let locale = 'american-to-british'
 
-        test('Translate Have you met Mrs Kalyani? to American English', () => {
-            const input = 'Have you met Mrs Kalyani?';
-            const expected = 'Have you met Mrs. Kalyani?';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
 
-        test('Translate Prof Joyner of King\'s College, London. to American English', () => {
-            const input = 'Prof Joyner of King\'s College, London.';
-            const expected = 'Prof. Joyner of King\'s College, London.';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+    test("To play hooky means to skip class or work.", (done) => {
+      let str = "To play hooky means to skip class or work."
+      let newStr = "To <span class=\"highlight\">bunk off</span> means to skip class or work."
+      let locale = 'american-to-british'
 
-        test('Translate Tea time is usually around 4 or 4.30. to American English', () => {
-            const input = 'Tea time is usually around 4 or 4.30.';
-            const expected = 'Tea time is usually around 4 or 4:30.';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
 
-        test('Highlight translation in Mangoes are my favorite fruit.', () => {
-            const input = 'Mangoes are my favorite fruit.';
-            const expected = 'Mangoes are my <span class="highlight">favourite</span> fruit.';
-            assert.equal(translator.americanToBritish(input), expected);
-        });
+    test("No Mr. Bond, I expect you to die.", (done) => {
+      let str = "No Mr. Bond, I expect you to die."
+      let newStr = "No <span class=\"highlight\">Mr</span> Bond, I expect you to die."
+      let locale = 'american-to-british'
 
-        test('Highlight translation in I ate yogurt for breakfast.', () => {
-            const input = 'I ate yogurt for breakfast.';
-            const expected = 'I ate <span class="highlight">yoghurt</span> for breakfast.';
-            assert.equal(translator.americanToBritish(input), expected);
-        });
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
 
-        test('Highlight translation in We watched the footie match for a while.', () => {
-            const input = 'We watched the footie match for a while.';
-            const expected = 'We watched the <span class="highlight">soccer</span> match for a while.';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+    test("Dr. Grosh will see you now.", (done) => {
+      let str = "Dr. Grosh will see you now."
+      let newStr = "<span class=\"highlight\">Dr</span> Grosh will see you now."
+      let locale = 'american-to-british'
 
-        test('Highlight translation in Paracetamol takes up to an hour to work.', () => {
-            const input = 'Paracetamol takes up to an hour to work.';
-            const expected = '<span class="highlight">Tylenol</span> takes up to an hour to work.';
-            assert.equal(translator.britishToAmerican(input), expected);
-        });
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
 
+    test("Lunch is at 12:15 today.", (done) => {
+      let str = "Lunch is at 12:15 today."
+      let newStr = "Lunch is at <span class=\"highlight\">12.15</span> today."
+      let locale = 'american-to-british'
 
-    });
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
+
+  })
+
+  suite('British => American', () => {
+
+    test("We watched the footie match for a while.", (done) => {
+      let str = "We watched the footie match for a while."
+      let newStr = "We watched the <span class=\"highlight\">soccer</span> match for a while."
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
+
+    test("Paracetamol takes up to an hour to work.", (done) => {
+      let str = "Paracetamol takes up to an hour to work."
+      let newStr = "<span class=\"highlight\">Tylenol</span> takes up to an hour to work."
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
+
+    test("First, caramelise the onions.", (done) => {
+      let str = "First, caramelise the onions."
+      let newStr = "First, <span class=\"highlight\">caramelize</span> the onions."
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
+
+    test("I spent the bank holiday at the funfair.", (done) => {
+      let str = "I spent the bank holiday at the funfair."
+      let newStr = "I spent the <span class=\"highlight\">public holiday</span> at the <span class=\"highlight\">carnival</span>."
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
+
+    test("I had a bicky then went to the chippy.", (done) => {
+      let str = "I had a bicky then went to the chippy."
+      let newStr = "I had a <span class=\"highlight\">cookie</span> then went to the <span class=\"highlight\">fish-and-chip shop</span>."
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
+
+    test("I've just got bits and bobs in my bum bag.", (done) => {
+      let str = "I've just got bits and bobs in my bum bag."
+      let newStr = "I've just got <span class=\"highlight\">odds and ends</span> in my <span class=\"highlight\">fanny pack</span>."
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
+
+    test("The car boot sale at Boxted Airfield was called off.", (done) => {
+      let str = "The car boot sale at Boxted Airfield was called off."
+      let newStr = "The <span class=\"highlight\">swap meet</span> at Boxted Airfield was called off."
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
+
+    test("Have you met Mrs Kalyani?", (done) => {
+      let str = "Have you met Mrs Kalyani?"
+      let newStr = "Have you met <span class=\"highlight\">Mrs.</span> Kalyani?"
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
+
+    test("Prof Joyner of King's College, London.", (done) => {
+      let str = "Prof Joyner of King's College, London."
+      let newStr = "<span class=\"highlight\">Prof.</span> Joyner of King's College, London."
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
+
+    test("Tea time is usually around 4 or 4.30.", (done) => {
+      let str = "Tea time is usually around 4 or 4.30."
+      let newStr = "Tea time is usually around 4 or <span class=\"highlight\">4:30</span>."
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), newStr)
+      done()
+    })
+
+  })
+
+  suite('Highlight Translation', () => {
+
+    test("Mangoes are my favorite fruit.", (done) => {
+      let str = "Mangoes are my favorite fruit."
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), 'Everything looks good to me!')
+      done()
+    })
+
+    test("I ate yogurt for breakfast.", (done) => {
+      let str = "I ate yogurt for breakfast."
+      let locale = 'british-to-american'
+
+      assert.equal(translator.translate(str, locale), 'Everything looks good to me!')
+      done()
+    })
+
+    test("We watched the footie match for a while.", (done) => {
+      let str = "We watched the footie match for a while."
+      let locale = 'american-to-british'
+
+      assert.equal(translator.translate(str, locale), 'Everything looks good to me!')
+      done()
+    })
+
+    test("Paracetamol takes up to an hour to work.", (done) => {
+      let str = "Paracetamol takes up to an hour to work."
+      let locale = 'american-to-british'
+
+      assert.equal(translator.translate(str, locale), 'Everything looks good to me!')
+      done()
+    })
+
+  })
 
 });
